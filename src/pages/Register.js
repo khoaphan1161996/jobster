@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import Wrapper from "../assets/wrappers/RegisterPage";
 import { FormRow, Logo } from "../components";
-import { toast } from "react-toastify";
 import { useSelector, useDispatch } from "react-redux";
 import { loginUser, registerUser } from "../features/user/userSlice";
 import { useNavigate } from "react-router-dom";
@@ -29,10 +28,6 @@ const Register = () => {
   const onSubmit = (e) => {
     e.preventDefault();
     const { name, email, password, isMember } = values;
-    // if (!email || !password || (!isMember && !name)) {
-    //   toast.error("Plz fill out all fields");
-    //   return;
-    // }
 
     if (isMember) {
       dispatch(loginUser({ email: email, password: password }));
