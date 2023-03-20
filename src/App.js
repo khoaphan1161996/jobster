@@ -1,17 +1,11 @@
 import { Provider } from "react-redux";
-import { store } from "./store";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { store } from "./store";
 
-import { Error, Landing, Register, ProtectedRoute } from "./pages";
-import {
-  Profile,
-  AllJobs,
-  AddJob,
-  Stats,
-  SharedLayout,
-} from "./pages/dashboard";
+import { Error, Landing, ProtectedRoute, Register } from "./pages";
+import { AddJob, AllJobs, SharedLayout, Stats } from "./pages/dashboard";
 
 function App() {
   return (
@@ -29,7 +23,6 @@ function App() {
             <Route index element={<Stats />} />
             <Route path="all-jobs" element={<AllJobs />} />
             <Route path="add-job" element={<AddJob />} />
-            <Route path="profile" element={<Profile />} />
           </Route>
           <Route path="landing" element={<Landing />} />
           <Route path="register" element={<Register />} />
