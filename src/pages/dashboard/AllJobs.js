@@ -4,8 +4,8 @@ import { JobContainer, SearchContainer } from "../../components";
 const AllJobs = () => {
   return (
     <>
-      <JobContainer />
       <SearchContainer />
+      <JobContainer />
     </>
   );
 };
