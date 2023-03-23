@@ -8,14 +8,22 @@ import Loading from "./Loading";
 import { getAllJobs } from "../features/alljob/allJobSlice";
 
 const JobContainer = () => {
-  const { jobs, isLoading, page, totalJobs, numofPages } = useSelector(
-    (store) => store.allJobs
-  );
+  const {
+    jobs,
+    isLoading,
+    page,
+    totalJobs,
+    numOfPages,
+    search,
+    searchStatus,
+    searchType,
+    sort,
+  } = useSelector((store) => store.allJobs);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getAllJobs());
-  }, []);
+  }, [page, search, searchStatus, searchType, sort]);
 
   if (isLoading) {
     return <Loading center />;
@@ -32,7 +40,7 @@ const JobContainer = () => {
   return (
     <Wrapper>
       <h5>
-        {totalJobs} job {jobs.length > 1 && "s"}
+        {totalJobs} job{jobs.length > 1 && "s"}
       </h5>
       <div className="jobs">
         {jobs.map((job) => {
@@ -40,7 +48,7 @@ const JobContainer = () => {
         })}
       </div>
 
-      {numofPages > 1 && <PageBtnContainer />}
+      {numOfPages > 1 && <PageBtnContainer />}
     </Wrapper>
   );
 };
