@@ -1,5 +1,11 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
+import { job_create_msg, job_modified_msg } from "../../libs/constants/msg";
+import {
+  STATUS_JOBS_OPTIONS,
+  TYPE_JOBS_OPTIONS,
+} from "../../libs/constants/option";
+import { JOBS } from "../../libs/constants/url_action";
 import { getUserToLocalStorage } from "../../utils/localStorage";
 import { createJobThunk, deleteJobThunk, editJobThunk } from "./jobThunk";
 
@@ -8,19 +14,25 @@ const initialState = {
   position: "",
   company: "",
   jobLocation: "",
-  jobTypeOptions: ["full-time", "part-time", "remote", "internship"],
+  jobTypeOptions: TYPE_JOBS_OPTIONS,
   jobType: "full-time",
-  statusOptions: ["interview", "declined", "pending"],
+  statusOptions: STATUS_JOBS_OPTIONS,
   status: "pending",
   isEditing: false,
   editJobId: "",
 };
 
-export const createJob = createAsyncThunk("job/createJob", createJobThunk);
+export const createJob = createAsyncThunk(
+  JOBS.CREATE_JOB_ACTION,
+  createJobThunk
+);
 
-export const deleteJob = createAsyncThunk("job/deleteJob", deleteJobThunk);
+export const deleteJob = createAsyncThunk(
+  JOBS.DELETE_JOB_ACTION,
+  deleteJobThunk
+);
 
-export const editJob = createAsyncThunk("job/editJob", editJobThunk);
+export const editJob = createAsyncThunk(JOBS.EDIT_JOB_ACTION, editJobThunk);
 
 const jobSlice = createSlice({
   name: "job",
@@ -46,7 +58,7 @@ const jobSlice = createSlice({
       })
       .addCase(createJob.fulfilled, (state) => {
         state.isLoading = false;
-        toast.success("Job Created");
+        toast.success(job_create_msg);
       })
       .addCase(createJob.rejected, (state, { payload }) => {
         state.isLoading = false;
@@ -63,7 +75,7 @@ const jobSlice = createSlice({
       })
       .addCase(editJob.fulfilled, (state) => {
         state.isLoading = false;
-        toast.success("Job Modified...");
+        toast.success(job_modified_msg);
       })
       .addCase(editJob.rejected, (state, { payload }) => {
         state.isLoading = false;

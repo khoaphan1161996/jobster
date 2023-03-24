@@ -1,5 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
+import { SORT_JOBS_OPTIONS } from "../../libs/constants/option";
+import { JOBS } from "../../libs/constants/url_action";
 import { getAllJobsThunk, showStatsThunk } from "./allJobThunk";
 
 const initialFiltersState = {
@@ -7,7 +9,7 @@ const initialFiltersState = {
   searchStatus: "all",
   searchType: "all",
   sort: "latest",
-  sortOptions: ["latest", "oldest", "a-z", "z-a"],
+  sortOptions: SORT_JOBS_OPTIONS,
 };
 
 const initialState = {
@@ -21,9 +23,15 @@ const initialState = {
   ...initialFiltersState,
 };
 
-export const getAllJobs = createAsyncThunk("allJobs/getJobs", getAllJobsThunk);
+export const getAllJobs = createAsyncThunk(
+  JOBS.GET_ALL_JOBS_ACTION,
+  getAllJobsThunk
+);
 
-export const showStats = createAsyncThunk("allJobs/showStats", showStatsThunk);
+export const showStats = createAsyncThunk(
+  JOBS.GET_STATS_JOBS_ACTION,
+  showStatsThunk
+);
 
 const allJobsSlice = createSlice({
   name: "allJobs",

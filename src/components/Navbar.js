@@ -9,6 +9,7 @@ import {
   logoutUser,
   toogleSidebar,
 } from "../features/user/userSlice";
+import { loggin_out_msg } from "../libs/constants/msg";
 
 const Navbar = () => {
   const { user } = useSelector((store) => store.user);
@@ -45,7 +46,7 @@ const Navbar = () => {
               type="button"
               className="dropdown-btn"
               onClick={() => {
-                dispatch(clearStore("Logging out..."));
+                dispatch(clearStore(loggin_out_msg));
               }}
             >
               logout

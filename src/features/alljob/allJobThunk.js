@@ -1,10 +1,11 @@
+import { JOBS } from "../../libs/constants/url_action";
 import customFetch, { checkForUnauthorizedResponse } from "../../utils/axios";
 
 export const getAllJobsThunk = async (_, thunkAPI) => {
   const { page, search, searchStatus, searchType, sort } =
     thunkAPI.getState().allJobs;
 
-  let url = `/jobs?status=${searchStatus}&jobType=${searchType}&sort=${sort}&page=${page}`;
+  let url = `${JOBS.URL}?status=${searchStatus}&jobType=${searchType}&sort=${sort}&page=${page}`;
   if (search) {
     url = url + `&search=${search}`;
   }
@@ -18,7 +19,7 @@ export const getAllJobsThunk = async (_, thunkAPI) => {
 
 export const showStatsThunk = async (_, thunkAPI) => {
   try {
-    const resp = await customFetch.get("./jobs/stats");
+    const resp = await customFetch.get(`${JOBS.URL}/stats`);
     return resp.data;
   } catch (error) {
     return checkForUnauthorizedResponse(error, thunkAPI);

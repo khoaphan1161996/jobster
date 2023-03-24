@@ -1,5 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
+import { error_msg, hello_msg, welcome_msg } from "../../libs/constants/msg";
+import { USER } from "../../libs/constants/url_action";
 import {
   addUserToLocalStorage,
   getUserToLocalStorage,
@@ -18,20 +20,23 @@ const initialState = {
 };
 
 export const registerUser = createAsyncThunk(
-  "user/registerUser",
+  USER.REGISTER_USER_ACTION,
   async (user, thunkAPI) => {
-    return registerUserThunk("/auth/register", user, thunkAPI);
+    return registerUserThunk(USER.URL_REGISTER, user, thunkAPI);
   }
 );
 
 export const loginUser = createAsyncThunk(
-  "user/loginUser",
+  USER.LOGIN_USER_ACTION,
   async (user, thunkAPI) => {
-    return loginUserThunk("/auth/login", user, thunkAPI);
+    return loginUserThunk(USER.URL_LOGIN, user, thunkAPI);
   }
 );
 
-export const clearStore = createAsyncThunk("user/clearStore", clearStoreThunk);
+export const clearStore = createAsyncThunk(
+  USER.CLEAR_STORE_USER_ACTION,
+  clearStoreThunk
+);
 
 const userSlice = createSlice({
   name: "user",
@@ -59,7 +64,7 @@ const userSlice = createSlice({
         state.isLoading = false;
         state.user = user;
         addUserToLocalStorage(user);
-        toast.success(`Hello There ${user.name}`);
+        toast.success(`${hello_msg} ${user.name}`);
       })
       .addCase(registerUser.rejected, (state, { payload }) => {
         state.isLoading = false;
@@ -74,14 +79,14 @@ const userSlice = createSlice({
         state.user = user;
         addUserToLocalStorage(user);
 
-        toast.success(`Welcome Back ${user.name}`);
+        toast.success(`${welcome_msg} ${user.name}`);
       })
       .addCase(loginUser.rejected, (state, { payload }) => {
         state.isLoading = false;
         toast.error(payload);
       })
       .addCase(clearStore.rejected, () => {
-        toast.error("There was an error..");
+        toast.error(`${error_msg}`);
       });
   },
 });
